@@ -36,7 +36,9 @@ const Form = ({ addTodo }) => {
       <Grid container direction="column" justify="center" alignItems="center">
         <form onSubmit={handelSubmit}>
           <FormControl fullWidth className={classes.margin} variant="filled">
-            <InputLabel htmlFor="filled-adornment-amount">Add To Do</InputLabel>
+            <InputLabel htmlFor="filled-adornment-amount">
+              Add To Do Item
+            </InputLabel>
             <FilledInput
               id="filled-adornment-amount"
               value={inputValue}
