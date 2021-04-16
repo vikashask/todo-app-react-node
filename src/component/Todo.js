@@ -1,12 +1,11 @@
-import { IconButton } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
+import { FilledInput, FormControl, IconButton } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
 import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
-import React from "react";
+import React, { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,17 +20,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Todo = ({ title }) => {
+const Todo = ({ title, isCompleted }) => {
   const classes = useStyles();
+  const [isEditing, setIsEditing] = useState(false);
 
-  return (
+  const onDoubleClick = () => {
+    console.log("🚀 ~ file: Todo.js ~ line 29 ~ onDoubleClick ~ onDoubleClick");
+    setIsEditing(true);
+  };
+
+  const handleKeyDown = (e) => {
+    console.log(e.keyCode);
+    const key = e.keyCode;
+    if (key === 13 || key === 27) {
+      setIsEditing(false);
+    }
+  };
+
+  return isEditing ? (
+    <FormControl fullWidth variant="filled">
+      <FilledInput
+        id="filled-adornment-amount"
+        value=""
+        onKeyDown={handleKeyDown}
+        variant="outlined"
+        autoFocus
+      />
+    </FormControl>
+  ) : (
     <Paper className={classes.paper}>
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
-          <Avatar>TD</Avatar>
-        </Grid>
-        <Grid item>
-          <Typography noWrap>{title}</Typography>
+          <Typography onDoubleClick={onDoubleClick} noWrap>
+            {title}
+          </Typography>
         </Grid>
         <Grid item>
           <IconButton aria-label="delete" className={classes.margin}>
@@ -40,7 +62,7 @@ const Todo = ({ title }) => {
         </Grid>
         <Grid item>
           <IconButton
-            style={{ color: "green" }}
+            style={isCompleted ? { color: "green" } : { color: "blue" }}
             aria-label="delete"
             className={classes.margin}
           >
