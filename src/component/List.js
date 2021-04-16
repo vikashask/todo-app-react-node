@@ -1,9 +1,14 @@
 import React from "react";
 import Todo from "./Todo";
 
-const List = ({ list }) => {
-  const toDoRow = list.map((items) => (
-    <Todo title={items.title} isCompleted={items.isCompleted} />
+const List = ({ list, removeTodoListProps }) => {
+  const toDoRow = list.map((item) => (
+    <Todo
+      key={item.title}
+      title={item.title}
+      isCompleted={item.isCompleted}
+      removeTodoItemProps={() => removeTodoListProps(item.id)}
+    />
   ));
 
   return <div>{toDoRow}</div>;

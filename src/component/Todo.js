@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Todo = ({ title, isCompleted }) => {
+const Todo = ({ title, isCompleted, removeTodoItemProps }) => {
   const classes = useStyles();
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(title);
@@ -73,7 +73,11 @@ const Todo = ({ title, isCompleted }) => {
           </Typography>
         </Grid>
         <Grid item>
-          <IconButton aria-label="delete" className={classes.margin}>
+          <IconButton
+            onClick={removeTodoItemProps}
+            aria-label="delete"
+            className={classes.margin}
+          >
             <DeleteRoundedIcon />
           </IconButton>
         </Grid>

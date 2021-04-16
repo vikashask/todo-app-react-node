@@ -5,23 +5,32 @@ import List from "./component/List";
 
 const todoListData = [
   {
+    id: 1,
     title: "take breakfast",
     isCompleted: false,
   },
   {
+    id: 2,
     title: "take lunch",
     isCompleted: false,
   },
 ];
 const App = () => {
   const [todoList, setTodoList] = useState(todoListData);
+
   const addTodo = (item) => {
     setTodoList((oldList) => [...oldList, item]);
   };
+
+  const removeTodo = (id) => {
+    console.log("🚀 ~ file: App.js ~ line 24 ~ removeTodo ~ id", id);
+    setTodoList((oldList) => oldList.filter((item) => item.id !== id));
+  };
+
   return (
     <Grid container direction="column" justify="center" alignItems="center">
       <Form addTodo={addTodo} />
-      <List list={todoList} />
+      <List list={todoList} removeTodoListProps={removeTodo} />
     </Grid>
   );
 };

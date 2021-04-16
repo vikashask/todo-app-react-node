@@ -26,7 +26,8 @@ const Form = ({ addTodo }) => {
   const handelSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim() === "") return;
-    addTodo({ title: inputValue, isCompleted: false });
+
+    addTodo({ id: Math.random(), title: inputValue, isCompleted: false });
     setInputValue("");
   };
 
