@@ -15,32 +15,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Form = (props) => {
+const Form = ({ addTodo }) => {
   const classes = useStyles();
-  const [addTodo, setAddTodo] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
-  const handleChange = (prop) => (event) => {
-    setAddTodo(event.target.value);
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+    // addTodo({title:event.target.value,isCompleted:true})
+  };
+
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    addTodo({ title: inputValue, isCompleted: true });
+    setInputValue("");
   };
 
   return (
     <div>
-      <Grid
-        container
-        xs={12}
-        direction="column"
-        justify="center"
-        alignItems="center"
-      >
-        <FormControl fullWidth className={classes.margin} variant="filled">
-          <InputLabel htmlFor="filled-adornment-amount">Add To Do</InputLabel>
-          <FilledInput
-            id="filled-adornment-amount"
-            value=""
-            onChange={handleChange("amount")}
-            variant="outlined"
-          />
-        </FormControl>
+      <Grid container direction="column" justify="center" alignItems="center">
+        <form onSubmit={handelSubmit}>
+          <FormControl fullWidth className={classes.margin} variant="filled">
+            <InputLabel htmlFor="filled-adornment-amount">Add To Do</InputLabel>
+            <FilledInput
+              id="filled-adornment-amount"
+              value={inputValue}
+              onChange={handleChange}
+              variant="outlined"
+            />
+          </FormControl>
+        </form>
       </Grid>
     </div>
   );

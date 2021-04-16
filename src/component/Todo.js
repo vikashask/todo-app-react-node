@@ -23,26 +23,39 @@ const useStyles = makeStyles((theme) => ({
 const Todo = ({ title, isCompleted }) => {
   const classes = useStyles();
   const [isEditing, setIsEditing] = useState(false);
-
+  const [value, setValue] = useState(title);
+  const [tempValue, setTempValue] = useState(title);
+  const [completed, setCompleted] = useState(isCompleted);
   const onDoubleClick = () => {
-    console.log("🚀 ~ file: Todo.js ~ line 29 ~ onDoubleClick ~ onDoubleClick");
     setIsEditing(true);
   };
 
   const handleKeyDown = (e) => {
-    console.log(e.keyCode);
     const key = e.keyCode;
-    if (key === 13 || key === 27) {
+    if (key === 13) {
+      setValue(tempValue);
+      setIsEditing(false);
+    } else if (key === 27) {
+      setTempValue(value);
       setIsEditing(false);
     }
+  };
+
+  const handelOnChange = (e) => {
+    setTempValue(e.target.value);
+  };
+
+  const handelBtnClick = () => {
+    setCompleted((oldCompleted) => !oldCompleted);
   };
 
   return isEditing ? (
     <FormControl fullWidth variant="filled">
       <FilledInput
         id="filled-adornment-amount"
-        value=""
+        value={tempValue}
         onKeyDown={handleKeyDown}
+        onChange={handelOnChange}
         variant="outlined"
         autoFocus
       />
@@ -51,8 +64,12 @@ const Todo = ({ title, isCompleted }) => {
     <Paper className={classes.paper}>
       <Grid container wrap="nowrap" spacing={2}>
         <Grid item>
-          <Typography onDoubleClick={onDoubleClick} noWrap>
-            {title}
+          <Typography
+            onDoubleClick={onDoubleClick}
+            style={completed ? { color: "green" } : { color: "" }}
+            noWrap
+          >
+            {value}
           </Typography>
         </Grid>
         <Grid item>
@@ -62,9 +79,10 @@ const Todo = ({ title, isCompleted }) => {
         </Grid>
         <Grid item>
           <IconButton
-            style={isCompleted ? { color: "green" } : { color: "blue" }}
+            style={completed ? { color: "blue" } : { color: "green" }}
             aria-label="delete"
             className={classes.margin}
+            onClick={handelBtnClick}
           >
             <CheckCircleRoundedIcon />
           </IconButton>

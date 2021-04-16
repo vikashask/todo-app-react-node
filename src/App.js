@@ -23,9 +23,13 @@ const todoListData = [
 ];
 const App = () => {
   const [todoList, setTodoList] = useState(todoListData);
+  const addTodo = (item) => {
+    console.log("🚀 ~ file: App.js ~ line 29 ~ addTodo ~ addTodo");
+    setTodoList([...todoListData, item]);
+  };
   return (
     <Grid container direction="column" justify="center" alignItems="center">
-      <Form />
+      <Form addTodo={addTodo} />
       <List list={todoList} />
     </Grid>
   );
