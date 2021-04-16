@@ -21,12 +21,12 @@ const Form = ({ addTodo }) => {
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
-    // addTodo({title:event.target.value,isCompleted:true})
   };
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    addTodo({ title: inputValue, isCompleted: true });
+    if (inputValue.trim() === "") return;
+    addTodo({ title: inputValue, isCompleted: false });
     setInputValue("");
   };
 
