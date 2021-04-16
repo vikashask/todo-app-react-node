@@ -23,7 +23,6 @@ const App = () => {
   };
 
   const removeTodo = (id) => {
-    console.log("🚀 ~ file: App.js ~ line 24 ~ removeTodo ~ id", id);
     setTodoList((oldList) => oldList.filter((item) => item.id !== id));
   };
 
