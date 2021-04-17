@@ -4,6 +4,7 @@ const app = express();
 const PORT = 3000;
 const todoRouters = require("./router/todoRoutes");
 
+app.use(express.json());
 mongoose
   .connect("mongodb://localhost/todolist", {
     useUnifiedTopology: true,
