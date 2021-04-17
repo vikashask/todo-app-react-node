@@ -5,7 +5,11 @@ const PORT = 3000;
 const todoRouters = require("./router/todoRoutes");
 
 mongoose
-  .connect("mongodb://localhost/todolist")
+  .connect("mongodb://localhost/todolist", {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useFindAndModify: false,
+  })
   .then(() => console.log("connect to database"))
   .catch((error) => console.log(error));
 
