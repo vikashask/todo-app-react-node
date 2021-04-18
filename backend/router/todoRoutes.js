@@ -15,4 +15,22 @@ router.post("/", (req, res) => {
   });
 });
 
+router.delete("/:id", (req, res) => {
+  Todo.findOneAndRemove({ _id: req.params.id }, (error, result) => {
+    if (error) throw new Error(error);
+    res.json({ message: "deleted success" });
+  });
+});
+
+router.put("/:id", (req, res) => {
+  Todo.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { returnOriginal: false },
+    (error, result) => {
+      if (error) throw new Error(error);
+      res.json(result);
+    }
+  );
+});
 module.exports = router;
